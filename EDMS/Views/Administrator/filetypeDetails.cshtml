@@ -1,0 +1,26 @@
+﻿@model EDMS.filetype
+
+@{
+    ViewBag.Title = "Filetype Details";
+}
+
+<h2>Filetype Details</h2>
+
+<div>
+    <h4>Filetype</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "filetypeEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "filetypeList")
+</p>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EDMS.role>
+
+@{
+    ViewBag.Title = "Roles";
+    var count = 0;
+}
+
+<h2>Roles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "roleCreate")
+</p>
+<table class="table table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ count++;} count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "roleEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "roleDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "roleDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<EDMS.person>
+@{
+    ViewBag.Title = "People List";
+    var number = 0;
+}
+<h2>Members on the platform</h2>
+<p>
+    @Html.ActionLink("Create New", "peopleCreate")
+</p>
+<table class="table table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.identifier)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.department.deptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role.name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ number++; } @number
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hash)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.identifier)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.department.deptName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.role.name)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "peopleEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "peopleDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "peopleDelete", new { id = item.Id })*@
+
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("peopleEdit",new { id = item.Id })">Edit &nbsp;<i class="fa fa-pencil fa-lg"></i></a> |
+                    <a class="btn btn-info btn-sm" href="@Url.Action("peopleDetails",new { id = item.Id })">Details &nbsp;<i class="fa fa-address-book fa-lg"></i></a> |
+                    <a class="btn btn-danger btn-sm" href="@Url.Action("peopleDelete",new { id = item.Id })">Delete &nbsp;<i class="fa fa-trash fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.hash)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.identifier)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.department.deptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.role.name)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

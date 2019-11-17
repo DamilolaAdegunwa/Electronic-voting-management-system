@@ -1,0 +1,23 @@
+﻿@model EDMS.role
+@{
+    ViewBag.Title = "Role Details";
+}
+<h2>Role Details</h2>
+<div>
+    <h4>Role</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "roleEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "roleList")
+</p>

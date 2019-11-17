@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7ffadecb525c4e6ab3e307e0c54d682b" Name="Diagram1">
+        <EntityTypeShape EntityType="EDMSModel.activity" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="EDMSModel.admin" Width="1.5" PointX="5.25" PointY="10.75" />
+        <EntityTypeShape EntityType="EDMSModel.audit" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="EDMSModel.department" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="EDMSModel.error" Width="1.5" PointX="5.75" PointY="8.125" />
+        <EntityTypeShape EntityType="EDMSModel.errorLog" Width="1.5" PointX="8" PointY="8" />
+        <EntityTypeShape EntityType="EDMSModel.file" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="EDMSModel.filetype" Width="1.5" PointX="6" PointY="1.75" />
+        <EntityTypeShape EntityType="EDMSModel.person" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="EDMSModel.role" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="EDMSModel.support" Width="1.5" PointX="8.75" PointY="0.875" />
+        <AssociationConnector Association="EDMSModel.FK_audit_activity" />
+        <AssociationConnector Association="EDMSModel.FK_admin_person" />
+        <AssociationConnector Association="EDMSModel.FK_audit_personId" />
+        <AssociationConnector Association="EDMSModel.FK_person_department" />
+        <AssociationConnector Association="EDMSModel.FK_errorLog_error" />
+        <AssociationConnector Association="EDMSModel.FK_file_filetype" />
+        <AssociationConnector Association="EDMSModel.FK_file_person" />
+        <AssociationConnector Association="EDMSModel.FK_person_role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

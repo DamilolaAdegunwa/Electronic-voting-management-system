@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EDMS.activity>
+@{
+    ViewBag.Title = "Activities List";
+    var number = 0;
+}
+<h2>Activities List</h2>
+<p>
+    @Html.ActionLink("Create New", "activitiesCreate")
+</p>
+<table class="table  table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ number++; } @number
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "activitiesEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "activitiesDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "activitiesDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

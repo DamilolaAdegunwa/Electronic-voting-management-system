@@ -1,0 +1,39 @@
+﻿@using EDMS.Models.Helpers
+@{
+    ViewBag.Title = "User Panel";
+}
+@Html.BootstrapValidationSummary()
+@Html.ShowFlashMessage()
+@section styles{
+      <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />  
+}
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#firstTab">Files</a></li>
+    <li><a data-toggle="tab" href="#secondTab">Add</a></li>
+    <li><a data-toggle="tab" href="#thirdTab">thirdTab</a></li>
+    <li><a data-toggle="tab" href="#fourthTab">fourthTab</a></li>
+    <li><a data-toggle="tab" href="#fifthTab">fifthTab</a></li>
+    <li><a data-toggle="tab" href="#sixthTab">sixthTab</a></li>
+    <li><a data-toggle="tab" href="#seventhTab">seventhTab</a></li>
+</ul>
+<div class="tab-content">
+    <div id="firstTab" class="tab-pane fade in active">@Html.Action("test")</div>
+    <div id="secondTab" class="tab-pane fade in">@Html.Action("test")</div>
+    <div id="thirdTab" class="tab-pane fade in">@Html.Action("test")</div>
+    <div id="fourthTab" class="tab-pane fade in">@Html.Action("test")</div>
+    <div id="fifthTab" class="tab-pane fade in">@Html.Action("test")</div>
+    <div id="sixthTab" class="tab-pane fade in">@Html.Action("test")</div>
+    <div id="seventhTab" class="tab-pane fade in">@Html.Action("test")</div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+            function activatejQueryTable() {
+                $("#employeeTable").DataTable();
+            }
+            $(function () {
+                activatejQueryTable();
+            });
+    </script>
+}

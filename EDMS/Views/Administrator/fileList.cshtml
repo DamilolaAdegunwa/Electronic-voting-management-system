@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EDMS.file>
+
+@{
+    ViewBag.Title = "File List";
+    var count = 0;
+}
+
+<h2>File List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "fileCreate")
+</p>
+<table class="table table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filepath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filetype.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ count++; } count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.filepath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.filetype.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.person.fullname)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "fileEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "fileDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "fileDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filepath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filetype.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EDMS.audit>
+
+@{
+    ViewBag.Title = "Audit Log";
+    var count = 0;
+}
+
+<h2>Audit Log</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.auditObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.activity.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ count++; } @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datetime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.auditObject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.activity.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.person.fullname)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "auditEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "auditDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "auditDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.datetime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.auditObject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.activity.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

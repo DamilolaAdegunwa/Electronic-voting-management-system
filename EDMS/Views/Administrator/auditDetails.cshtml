@@ -1,0 +1,47 @@
+﻿@model EDMS.audit
+@{
+    ViewBag.Title = "Audit Details";
+}
+<h2>Audit Details</h2>
+<div>
+    <h4>Audit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datetime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.auditObject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.auditObject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activity.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activity.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.person.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person.fullname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "auditEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "auditList")
+</p>

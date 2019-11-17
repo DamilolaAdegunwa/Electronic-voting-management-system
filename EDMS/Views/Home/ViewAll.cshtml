@@ -1,0 +1,74 @@
+﻿@model IEnumerable<EDMS.file>
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+    var count = 0;
+}
+<table class="table table-hover table-striped table-bordered" id="employeeTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filepath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filetype.name)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ count++;} @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.filepath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.filetype.name)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.person.fullname)
+                </td>*@
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEdit", "Home", new { id=@item.Id})')"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete", "Home", new { id=@item.Id})')"><i class="fa fa-trash fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filepath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filetype.name)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>*@
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

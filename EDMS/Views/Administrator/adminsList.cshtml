@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EDMS.admin>
+@{
+    ViewBag.Title = "List of Administrators";
+    var count = 0;
+}
+<h2>List of Administrators</h2>
+<p>
+    @Html.ActionLink("Create New", "adminsCreate")
+</p>
+<table class="table table-hover table-striped table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hash)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ count++; }count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.hash)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.person.fullname)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "adminsEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "adminsDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "adminsDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.hash)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.person.fullname)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,23 @@
+﻿@model EDMS.activity
+@{
+    ViewBag.Title = "Activity Details";
+}
+<h2>Activity Details</h2>
+<div>
+    <h4>Activity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "activitiesEdit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "activitiesList")
+</p>

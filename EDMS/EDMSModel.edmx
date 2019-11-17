@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EDMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="900" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="hash" Type="varchar(max)" Nullable="false" />
+          <Property Name="personId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="audit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="personId" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="activityId" Type="int" Nullable="false" />
+          <Property Name="auditObject" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptName" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
+        <EntityType Name="error">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
+        <EntityType Name="errorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="errorId" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar(max)" Nullable="false" />
+          <Property Name="filepath" Type="varchar(max)" Nullable="false" />
+          <Property Name="filetypeId" Type="int" />
+          <Property Name="personId" Type="int" Nullable="false" />
+          <Property Name="contentType" Type="varchar(max)" Nullable="false" />
+          <Property Name="size" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="filetype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar(max)" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="900" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="deptId" Type="int" Nullable="false" />
+          <Property Name="password" Type="varchar(max)" Nullable="false" />
+          <Property Name="hash" Type="varchar(max)" Nullable="false" />
+          <Property Name="identifier" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="900" Nullable="false" />
+        </EntityType>
+        <EntityType Name="support">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar(max)" Nullable="false" />
+          <Property Name="details" Type="varchar(max)" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_admin_person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="admin" Type="Self.admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_audit_activity">
+          <End Role="activity" Type="Self.activity" Multiplicity="1" />
+          <End Role="audit" Type="Self.audit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="audit">
+              <PropertyRef Name="activityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_audit_personId">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="audit" Type="Self.audit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="audit">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_errorLog_error">
+          <End Role="error" Type="Self.error" Multiplicity="1" />
+          <End Role="errorLog" Type="Self.errorLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="error">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="errorLog">
+              <PropertyRef Name="errorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_filetype">
+          <End Role="filetype" Type="Self.filetype" Multiplicity="0..1" />
+          <End Role="file" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="filetype">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="filetypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_person">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="file" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_department">
+          <End Role="department" Type="Self.department" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="deptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_role">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EDMSModelStoreContainer">
+          <EntitySet Name="activity" EntityType="Self.activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="audit" EntityType="Self.audit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="error" EntityType="Self.error" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="errorLog" EntityType="Self.errorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="file" EntityType="Self.file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="filetype" EntityType="Self.filetype" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="support" EntityType="Self.support" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_admin_person" Association="Self.FK_admin_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="admin" EntitySet="admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_audit_activity" Association="Self.FK_audit_activity">
+            <End Role="activity" EntitySet="activity" />
+            <End Role="audit" EntitySet="audit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_audit_personId" Association="Self.FK_audit_personId">
+            <End Role="person" EntitySet="person" />
+            <End Role="audit" EntitySet="audit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_errorLog_error" Association="Self.FK_errorLog_error">
+            <End Role="error" EntitySet="error" />
+            <End Role="errorLog" EntitySet="errorLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_filetype" Association="Self.FK_file_filetype">
+            <End Role="filetype" EntitySet="filetype" />
+            <End Role="file" EntitySet="file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_person" Association="Self.FK_file_person">
+            <End Role="person" EntitySet="person" />
+            <End Role="file" EntitySet="file" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_department" Association="Self.FK_person_department">
+            <End Role="department" EntitySet="department" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_role" Association="Self.FK_person_role">
+            <End Role="role" EntitySet="role" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EDMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EDMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="activities" EntityType="EDMSModel.activity" />
+          <EntitySet Name="admins" EntityType="EDMSModel.admin" />
+          <EntitySet Name="audits" EntityType="EDMSModel.audit" />
+          <EntitySet Name="departments" EntityType="EDMSModel.department" />
+          <EntitySet Name="errors" EntityType="EDMSModel.error" />
+          <EntitySet Name="errorLogs" EntityType="EDMSModel.errorLog" />
+          <EntitySet Name="files" EntityType="EDMSModel.file" />
+          <EntitySet Name="filetypes" EntityType="EDMSModel.filetype" />
+          <EntitySet Name="people" EntityType="EDMSModel.person" />
+          <EntitySet Name="roles" EntityType="EDMSModel.role" />
+          <EntitySet Name="supports" EntityType="EDMSModel.support" />
+          <AssociationSet Name="FK_audit_activity" Association="EDMSModel.FK_audit_activity">
+            <End Role="activity" EntitySet="activities" />
+            <End Role="audit" EntitySet="audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_admin_person" Association="EDMSModel.FK_admin_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="admin" EntitySet="admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_audit_personId" Association="EDMSModel.FK_audit_personId">
+            <End Role="person" EntitySet="people" />
+            <End Role="audit" EntitySet="audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_department" Association="EDMSModel.FK_person_department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+          <AssociationSet Name="FK_errorLog_error" Association="EDMSModel.FK_errorLog_error">
+            <End Role="error" EntitySet="errors" />
+            <End Role="errorLog" EntitySet="errorLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_filetype" Association="EDMSModel.FK_file_filetype">
+            <End Role="filetype" EntitySet="filetypes" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_file_person" Association="EDMSModel.FK_file_person">
+            <End Role="person" EntitySet="people" />
+            <End Role="file" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_person_role" Association="EDMSModel.FK_person_role">
+            <End Role="role" EntitySet="roles" />
+            <End Role="person" EntitySet="people" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="activity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="audits" Relationship="EDMSModel.FK_audit_activity" FromRole="activity" ToRole="audit" />
+        </EntityType>
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="hash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="personId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="EDMSModel.FK_admin_person" FromRole="admin" ToRole="person" />
+        </EntityType>
+        <EntityType Name="audit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="personId" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="activityId" Type="Int32" Nullable="false" />
+          <Property Name="auditObject" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="activity" Relationship="EDMSModel.FK_audit_activity" FromRole="audit" ToRole="activity" />
+          <NavigationProperty Name="person" Relationship="EDMSModel.FK_audit_personId" FromRole="audit" ToRole="person" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptName" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="people" Relationship="EDMSModel.FK_person_department" FromRole="department" ToRole="person" />
+        </EntityType>
+        <EntityType Name="error">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="errorLogs" Relationship="EDMSModel.FK_errorLog_error" FromRole="error" ToRole="errorLog" />
+        </EntityType>
+        <EntityType Name="errorLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="errorId" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="error" Relationship="EDMSModel.FK_errorLog_error" FromRole="errorLog" ToRole="error" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="filepath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="filetypeId" Type="Int32" />
+          <Property Name="personId" Type="Int32" Nullable="false" />
+          <Property Name="contentType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="filetype" Relationship="EDMSModel.FK_file_filetype" FromRole="file" ToRole="filetype" />
+          <NavigationProperty Name="person" Relationship="EDMSModel.FK_file_person" FromRole="file" ToRole="person" />
+        </EntityType>
+        <EntityType Name="filetype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="files" Relationship="EDMSModel.FK_file_filetype" FromRole="filetype" ToRole="file" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <Property Name="deptId" Type="Int32" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="hash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="identifier" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="admins" Relationship="EDMSModel.FK_admin_person" FromRole="person" ToRole="admin" />
+          <NavigationProperty Name="audits" Relationship="EDMSModel.FK_audit_personId" FromRole="person" ToRole="audit" />
+          <NavigationProperty Name="department" Relationship="EDMSModel.FK_person_department" FromRole="person" ToRole="department" />
+          <NavigationProperty Name="files" Relationship="EDMSModel.FK_file_person" FromRole="person" ToRole="file" />
+          <NavigationProperty Name="role" Relationship="EDMSModel.FK_person_role" FromRole="person" ToRole="role" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="900" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="people" Relationship="EDMSModel.FK_person_role" FromRole="role" ToRole="person" />
+        </EntityType>
+        <EntityType Name="support">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="details" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_audit_activity">
+          <End Type="EDMSModel.activity" Role="activity" Multiplicity="1" />
+          <End Type="EDMSModel.audit" Role="audit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="audit">
+              <PropertyRef Name="activityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_admin_person">
+          <End Type="EDMSModel.person" Role="person" Multiplicity="1" />
+          <End Type="EDMSModel.admin" Role="admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="admin">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_audit_personId">
+          <End Type="EDMSModel.person" Role="person" Multiplicity="1" />
+          <End Type="EDMSModel.audit" Role="audit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="audit">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_department">
+          <End Type="EDMSModel.department" Role="department" Multiplicity="1" />
+          <End Type="EDMSModel.person" Role="person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="deptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_errorLog_error">
+          <End Type="EDMSModel.error" Role="error" Multiplicity="1" />
+          <End Type="EDMSModel.errorLog" Role="errorLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="error">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="errorLog">
+              <PropertyRef Name="errorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_filetype">
+          <End Type="EDMSModel.filetype" Role="filetype" Multiplicity="0..1" />
+          <End Type="EDMSModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="filetype">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="filetypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_file_person">
+          <End Type="EDMSModel.person" Role="person" Multiplicity="1" />
+          <End Type="EDMSModel.file" Role="file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="file">
+              <PropertyRef Name="personId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_person_role">
+          <End Type="EDMSModel.role" Role="role" Multiplicity="1" />
+          <End Type="EDMSModel.person" Role="person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EDMSModelStoreContainer" CdmEntityContainer="EDMSEntities">
+          <EntitySetMapping Name="activities">
+            <EntityTypeMapping TypeName="EDMSModel.activity">
+              <MappingFragment StoreEntitySet="activity">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="admins">
+            <EntityTypeMapping TypeName="EDMSModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="audits">
+            <EntityTypeMapping TypeName="EDMSModel.audit">
+              <MappingFragment StoreEntitySet="audit">
+                <ScalarProperty Name="auditObject" ColumnName="auditObject" />
+                <ScalarProperty Name="activityId" ColumnName="activityId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="EDMSModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="deptName" ColumnName="deptName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="errors">
+            <EntityTypeMapping TypeName="EDMSModel.error">
+              <MappingFragment StoreEntitySet="error">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="errorLogs">
+            <EntityTypeMapping TypeName="EDMSModel.errorLog">
+              <MappingFragment StoreEntitySet="errorLog">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="errorId" ColumnName="errorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="EDMSModel.file">
+              <MappingFragment StoreEntitySet="file">
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="contentType" ColumnName="contentType" />
+                <ScalarProperty Name="personId" ColumnName="personId" />
+                <ScalarProperty Name="filetypeId" ColumnName="filetypeId" />
+                <ScalarProperty Name="filepath" ColumnName="filepath" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="filetypes">
+            <EntityTypeMapping TypeName="EDMSModel.filetype">
+              <MappingFragment StoreEntitySet="filetype">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="people">
+            <EntityTypeMapping TypeName="EDMSModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="identifier" ColumnName="identifier" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="EDMSModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supports">
+            <EntityTypeMapping TypeName="EDMSModel.support">
+              <MappingFragment StoreEntitySet="support">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="details" ColumnName="details" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

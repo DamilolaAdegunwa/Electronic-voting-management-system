@@ -1,0 +1,50 @@
+﻿@model EDMS.file
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>file</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.filepath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.filepath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.filetype.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.filetype.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.person.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person.fullname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
